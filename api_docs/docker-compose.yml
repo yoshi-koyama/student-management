@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ".:/projects"
+    tty: true
+    command: aglio --theme-variables slate -i ./md/student-management.md -s -h 0.0.0.0
