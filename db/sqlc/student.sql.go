@@ -30,6 +30,24 @@ func (q *Queries) CreateStudent(ctx context.Context, arg CreateStudentParams) er
 	return err
 }
 
+const findById = `-- name: FindById :one
+SELECT id, name, nrc, age, gender, password FROM students WHERE id = $1
+`
+
+func (q *Queries) FindById(ctx context.Context, id int64) (Student, error) {
+	row := q.db.QueryRowContext(ctx, findById, id)
+	var i Student
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Nrc,
+		&i.Age,
+		&i.Gender,
+		&i.Password,
+	)
+	return i, err
+}
+
 const listStudents = `-- name: ListStudents :many
 SELECT id, name, nrc, age, gender, password FROM students
 `

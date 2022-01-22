@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//request handlers for student
 func (server *Server) CreateStudent(context *gin.Context) {
 
 	// check if nrc is already registered
@@ -33,7 +32,11 @@ func (server *Server) GetStudents(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	context.JSON(http.StatusOK, server.store.GetStudents(req.Gender))
+	student, err := server.store.GetStudents(req.Gender)
+	if err != nil {
+		return
+	}
+	context.JSON(http.StatusOK, student)
 }
 
 func (server *Server) GetDetailStudent(context *gin.Context) {
@@ -42,6 +45,10 @@ func (server *Server) GetDetailStudent(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "enter student id"})
 		return
 	}
+	student, err := server.store.GetDetailStudent(int64(req.Id))
+	if err != nil {
+		return
+	}
 
-	context.JSON(http.StatusOK, server.store.GetDetailStudent(req.Id))
+	context.JSON(http.StatusOK, student)
 }
