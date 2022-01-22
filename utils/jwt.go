@@ -8,7 +8,7 @@ import (
 var SecretKey = ""
 var STUDENT_ID = "student_id"
 
-func CreateToken(studentId int64, ) (string, error){
+func CreateToken(studentId int64) (string, error) {
 	claim := jwt.MapClaims{}
 	claim[STUDENT_ID] = studentId
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
