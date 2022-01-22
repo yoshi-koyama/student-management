@@ -10,11 +10,14 @@ This is a project to learn Golang and Gin
 # Getting Started
 - Clone this repository
 - Up a postgres docker container
-  - ``docker-compose up -d``
+  - `docker-compose up -d`
 - Create table
-  - ``make migrateup``
+  - `make migrateup`
 - Run the command below
-  - ``go run main.go``
+  - `go run main.go`
 
-# APIs
-See /api_docs/docs/student-management.html
+# API Specification
+- Move to `/api_dos` directory
+- Up an aglio container
+  - `docker-compose up -d`
+- Navigate to `http://localhost:3000/`
