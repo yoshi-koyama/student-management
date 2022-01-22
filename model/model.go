@@ -15,3 +15,7 @@ type GetDetailStudentRequest struct {
 type GetFilteredStudentRequest struct {
 	Gender string `form:"gender" binding:"omitempty,oneof=male female"`
 }
+
+type AuthHeader struct {
+	Token string `header:"token" binding:"required"`
+}

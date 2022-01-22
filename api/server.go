@@ -2,7 +2,10 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"net/http"
+	"student-management/middleware"
 	"student-management/store"
+	"student-management/utils"
 )
 
 type Server struct {
@@ -13,9 +16,19 @@ type Server struct {
 func NewServer(store store.Store) Server {
 	router := gin.Default()
 	server := Server{store: store, router: router}
-	router.POST("/register", server.CreateStudent)
-	router.GET("/students", server.GetStudents)
-	router.GET("/student/:id", server.GetDetailStudent)
+	authRouter := router.Group("/api")
+	authRouter.Use(middleware.AuthMiddleware())
+	authRouter.POST("/register", server.CreateStudent)
+	authRouter.GET("/students", server.GetStudents)
+	authRouter.GET("/student/:id", server.GetDetailStudent)
+	authRouter.GET("/some", func(c *gin.Context) {
+		studentId, ok := c.Get(utils.STUDENT_ID)
+		if ok {
+			c.JSON(http.StatusOK, gin.H{"msg": studentId})
+		} else {
+			c.JSON(http.StatusUnauthorized, gin.H{"msg": "authentication error"})
+		}
+	})
 
 	return server
 }
