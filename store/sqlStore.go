@@ -36,6 +36,10 @@ func (s SqlStore) GetDetailStudent(id int64) (*model.Student, error) {
 	return &model.Student{Id: student.ID, Name: student.Name, Nrc: student.Nrc, Age: student.Age, Gender: student.Gender, Password: student.Password}, nil
 }
 
+func (s SqlStore) FilterStudents(gender string, age int32, nrc string) ([]model.Student, error) {
+	return s.Queries.FilterStudents(context.Background(), gender, age, nrc)
+}
+
 func NewSqlStore(database *sql.DB) Store {
 	return &SqlStore{Queries: db.New(database)}
 }

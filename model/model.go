@@ -15,6 +15,8 @@ type GetDetailStudentRequest struct {
 
 type GetFilteredStudentRequest struct {
 	Gender string `form:"gender" binding:"omitempty,oneof=male female"`
+	Nrc string `form:"nrc"`
+	Age int32 `form:"age"`
 }
 
 type AuthHeader struct {
