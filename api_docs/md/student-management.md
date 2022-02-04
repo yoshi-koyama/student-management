@@ -1,5 +1,15 @@
 # Group Students
-# POST /register
+# POST /token
+
++ Request (application/json)
+            
++ Response 200 (application/json)
+
+            {
+              "token": "your jwt token"
+            }
+
+# POST /api/register
 
 + Request (application/json)
 
@@ -17,7 +27,7 @@
             }
 
 
-# GET /students
+# GET /api/students
 
 + Parameters
 
@@ -35,7 +45,7 @@
               }
             ]
 
-# GET /students/{id}
+# GET /api/students/{id}
 
 + Parameters
 
