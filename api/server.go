@@ -2,11 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
-	"net/http"
-	"student-management/middleware"
 	"student-management/store"
-	"student-management/utils"
 )
 
 type Server struct {
@@ -17,19 +13,10 @@ type Server struct {
 func NewServer(store store.Store) Server {
 	router := gin.Default()
 	server := Server{store: store, router: router}
-	router.POST("token", func(context *gin.Context) {
-		token, err := utils.CreateToken(1)
-		if err != nil {
-			log.Fatal("create token failed")
-			context.JSON(http.StatusInternalServerError, gin.H{"msg": "failed to create token"})
-		}
-		context.JSON(http.StatusOK, gin.H{"token": token})
-	})
 	authRouter := router.Group("/api")
-	authRouter.Use(middleware.AuthMiddleware())
-	authRouter.POST("/register", server.CreateStudent)
+	authRouter.POST("/students", server.CreateStudent)
 	authRouter.GET("/students", server.GetStudents)
-	authRouter.GET("/student/:id", server.GetDetailStudent)
+	authRouter.GET("/students/:id", server.GetDetailStudent)
 
 	return server
 }
