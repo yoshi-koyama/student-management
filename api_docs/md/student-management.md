@@ -9,7 +9,18 @@
               "token": "your jwt token"
             }
 
-# POST /api/register
+# POST /api/students
+
++ Request Sample
+```
+curl -XPOST -H "Content-type: application/json" -d '{
+  "name":"yoshi",
+  "nrc":"1234",
+  "age":20,
+  "gender":"male",
+  "password":"password"
+}' 'http://localhost:8080/api/students'
+```
 
 + Request (application/json)
 
@@ -26,8 +37,12 @@
               "message": "create student success"
             }
 
-
 # GET /api/students
+
++ Request Sample
+```
+curl http://localhost:8080/api/students
+```
 
 + Parameters
 
@@ -46,6 +61,11 @@
             ]
 
 # GET /api/students/{id}
+
++ Request Sample
+```
+curl http://localhost:8080/api/students/1
+```
 
 + Parameters
 
